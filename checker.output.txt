@@ -1,0 +1,483 @@
+src/App.jsx:
+```
+import React, { useState, useRef } from "react";
+import { StyleSheet, View, Text, TextInput, TouchableOpacity, Platform, StatusBar } from "react-native";
+import PagerView from "react-native-pager-view";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import LoginPage from "./screens/LoginPage/LoginPage";
+import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
+import DashboardPage from "./screens/DashboardPage/DashboardPage";
+import SettingsScreen from "./screens/SettingsScreen/SettingsScreen";
+
+
+import { useStyles } from "./Styles";
+
+
+
+
+
+
+
+
+const Stack = createNativeStackNavigator();
+
+export default function App() {
+    const styles = useStyles();
+    return (
+        <NavigationContainer>
+            <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Login" component={LoginPage} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
+                <Stack.Screen name="Dashboard" component={DashboardPage} />
+                {/* Enabling header just for the Settings screen as a native UI touch */}
+                <Stack.Screen
+                    name="Settings"
+                    component={SettingsScreen}
+                    options={{
+                        headerShown: true,
+                        headerTitle: "PIGEON Settings",
+                        headerBackTitle: "Back" // iOS only
+                    }}
+                />
+            </Stack.Navigator>
+        </NavigationContainer>
+    );
+}
+
+```
+
+src/demo/QRSample.json:
+```
+[7,7,12345678]
+```
+
+src/demo/QRTest.json:
+```
+["Ronaldo","Ronaldo","7NaimaJibon"]
+```
+
+src/demo/QRTest.svg:
+```
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+	 viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+	
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="100" height="100" viewBox="0 0 2000 2000" x="0" y="0" shape-rendering="crispEdges"><defs/><rect x="0" y="0" width="2000" height="2000" fill="#ffffff"/><rect x="629" y="173" width="57" height="57" fill="#000000"/><rect x="686" y="173" width="57" height="57" fill="#000000"/><rect x="743" y="173" width="57" height="57" fill="#000000"/><rect x="800" y="173" width="57" height="57" fill="#000000"/><rect x="914" y="173" width="57" height="57" fill="#000000"/><rect x="1028" y="173" width="57" height="57" fill="#000000"/><rect x="1142" y="173" width="57" height="57" fill="#000000"/><rect x="1199" y="173" width="57" height="57" fill="#000000"/><rect x="1256" y="173" width="57" height="57" fill="#000000"/><rect x="800" y="230" width="57" height="57" fill="#000000"/><rect x="857" y="230" width="57" height="57" fill="#000000"/><rect x="914" y="230" width="57" height="57" fill="#000000"/><rect x="971" y="230" width="57" height="57" fill="#000000"/><rect x="1028" y="230" width="57" height="57" fill="#000000"/><rect x="1085" y="230" width="57" height="57" fill="#000000"/><rect x="1142" y="230" width="57" height="57" fill="#000000"/><rect x="1199" y="230" width="57" height="57" fill="#000000"/><rect x="1313" y="230" width="57" height="57" fill="#000000"/><rect x="686" y="287" width="57" height="57" fill="#000000"/><rect x="800" y="287" width="57" height="57" fill="#000000"/><rect x="914" y="287" width="57" height="57" fill="#000000"/><rect x="1028" y="287" width="57" height="57" fill="#000000"/><rect x="1199" y="287" width="57" height="57" fill="#000000"/><rect x="743" y="344" width="57" height="57" fill="#000000"/><rect x="800" y="344" width="57" height="57" fill="#000000"/><rect x="971" y="344" width="57" height="57" fill="#000000"/><rect x="1085" y="344" width="57" height="57" fill="#000000"/><rect x="1142" y="344" width="57" height="57" fill="#000000"/><rect x="1199" y="344" width="57" height="57" fill="#000000"/><rect x="1313" y="344" width="57" height="57" fill="#000000"/><rect x="743" y="401" width="57" height="57" fill="#000000"/><rect x="800" y="401" width="57" height="57" fill="#000000"/><rect x="857" y="401" width="57" height="57" fill="#000000"/><rect x="914" y="401" width="57" height="57" fill="#000000"/><rect x="971" y="401" width="57" height="57" fill="#000000"/><rect x="1142" y="401" width="57" height="57" fill="#000000"/><rect x="1199" y="401" width="57" height="57" fill="#000000"/><rect x="1256" y="401" width="57" height="57" fill="#000000"/><rect x="1313" y="401" width="57" height="57" fill="#000000"/><rect x="686" y="458" width="57" height="57" fill="#000000"/><rect x="800" y="458" width="57" height="57" fill="#000000"/><rect x="914" y="458" width="57" height="57" fill="#000000"/><rect x="971" y="458" width="57" height="57" fill="#000000"/><rect x="1085" y="458" width="57" height="57" fill="#000000"/><rect x="1199" y="458" width="57" height="57" fill="#000000"/><rect x="629" y="515" width="57" height="57" fill="#000000"/><rect x="743" y="515" width="57" height="57" fill="#000000"/><rect x="857" y="515" width="57" height="57" fill="#000000"/><rect x="971" y="515" width="57" height="57" fill="#000000"/><rect x="1085" y="515" width="57" height="57" fill="#000000"/><rect x="1199" y="515" width="57" height="57" fill="#000000"/><rect x="1313" y="515" width="57" height="57" fill="#000000"/><rect x="629" y="572" width="57" height="57" fill="#000000"/><rect x="686" y="572" width="57" height="57" fill="#000000"/><rect x="857" y="572" width="57" height="57" fill="#000000"/><rect x="971" y="572" width="57" height="57" fill="#000000"/><rect x="1028" y="572" width="57" height="57" fill="#000000"/><rect x="1313" y="572" width="57" height="57" fill="#000000"/><rect x="173" y="629" width="57" height="57" fill="#000000"/><rect x="230" y="629" width="57" height="57" fill="#000000"/><rect x="344" y="629" width="57" height="57" fill="#000000"/><rect x="401" y="629" width="57" height="57" fill="#000000"/><rect x="515" y="629" width="57" height="57" fill="#000000"/><rect x="686" y="629" width="57" height="57" fill="#000000"/><rect x="857" y="629" width="57" height="57" fill="#000000"/><rect x="914" y="629" width="57" height="57" fill="#000000"/><rect x="971" y="629" width="57" height="57" fill="#000000"/><rect x="1028" y="629" width="57" height="57" fill="#000000"/><rect x="1085" y="629" width="57" height="57" fill="#000000"/><rect x="1142" y="629" width="57" height="57" fill="#000000"/><rect x="1256" y="629" width="57" height="57" fill="#000000"/><rect x="1313" y="629" width="57" height="57" fill="#000000"/><rect x="1427" y="629" width="57" height="57" fill="#000000"/><rect x="1769" y="629" width="57" height="57" fill="#000000"/><rect x="230" y="686" width="57" height="57" fill="#000000"/><rect x="458" y="686" width="57" height="57" fill="#000000"/><rect x="572" y="686" width="57" height="57" fill="#000000"/><rect x="743" y="686" width="57" height="57" fill="#000000"/><rect x="971" y="686" width="57" height="57" fill="#000000"/><rect x="1028" y="686" width="57" height="57" fill="#000000"/><rect x="1256" y="686" width="57" height="57" fill="#000000"/><rect x="1427" y="686" width="57" height="57" fill="#000000"/><rect x="1484" y="686" width="57" height="57" fill="#000000"/><rect x="1598" y="686" width="57" height="57" fill="#000000"/><rect x="1655" y="686" width="57" height="57" fill="#000000"/><rect x="230" y="743" width="57" height="57" fill="#000000"/><rect x="287" y="743" width="57" height="57" fill="#000000"/><rect x="344" y="743" width="57" height="57" fill="#000000"/><rect x="401" y="743" width="57" height="57" fill="#000000"/><rect x="458" y="743" width="57" height="57" fill="#000000"/><rect x="515" y="743" width="57" height="57" fill="#000000"/><rect x="572" y="743" width="57" height="57" fill="#000000"/><rect x="629" y="743" width="57" height="57" fill="#000000"/><rect x="686" y="743" width="57" height="57" fill="#000000"/><rect x="857" y="743" width="57" height="57" fill="#000000"/><rect x="971" y="743" width="57" height="57" fill="#000000"/><rect x="1142" y="743" width="57" height="57" fill="#000000"/><rect x="1256" y="743" width="57" height="57" fill="#000000"/><rect x="1313" y="743" width="57" height="57" fill="#000000"/><rect x="1370" y="743" width="57" height="57" fill="#000000"/><rect x="1484" y="743" width="57" height="57" fill="#000000"/><rect x="1598" y="743" width="57" height="57" fill="#000000"/><rect x="1655" y="743" width="57" height="57" fill="#000000"/><rect x="1712" y="743" width="57" height="57" fill="#000000"/><rect x="230" y="800" width="57" height="57" fill="#000000"/><rect x="401" y="800" width="57" height="57" fill="#000000"/><rect x="572" y="800" width="57" height="57" fill="#000000"/><rect x="971" y="800" width="57" height="57" fill="#000000"/><rect x="1028" y="800" width="57" height="57" fill="#000000"/><rect x="1199" y="800" width="57" height="57" fill="#000000"/><rect x="1256" y="800" width="57" height="57" fill="#000000"/><rect x="1313" y="800" width="57" height="57" fill="#000000"/><rect x="1484" y="800" width="57" height="57" fill="#000000"/><rect x="1541" y="800" width="57" height="57" fill="#000000"/><rect x="173" y="857" width="57" height="57" fill="#000000"/><rect x="230" y="857" width="57" height="57" fill="#000000"/><rect x="344" y="857" width="57" height="57" fill="#000000"/><rect x="401" y="857" width="57" height="57" fill="#000000"/><rect x="515" y="857" width="57" height="57" fill="#000000"/><rect x="572" y="857" width="57" height="57" fill="#000000"/><rect x="686" y="857" width="57" height="57" fill="#000000"/><rect x="743" y="857" width="57" height="57" fill="#000000"/><rect x="914" y="857" width="57" height="57" fill="#000000"/><rect x="971" y="857" width="57" height="57" fill="#000000"/><rect x="1028" y="857" width="57" height="57" fill="#000000"/><rect x="1256" y="857" width="57" height="57" fill="#000000"/><rect x="1313" y="857" width="57" height="57" fill="#000000"/><rect x="1370" y="857" width="57" height="57" fill="#000000"/><rect x="1427" y="857" width="57" height="57" fill="#000000"/><rect x="1484" y="857" width="57" height="57" fill="#000000"/><rect x="1598" y="857" width="57" height="57" fill="#000000"/><rect x="1712" y="857" width="57" height="57" fill="#000000"/><rect x="1769" y="857" width="57" height="57" fill="#000000"/><rect x="173" y="914" width="57" height="57" fill="#000000"/><rect x="230" y="914" width="57" height="57" fill="#000000"/><rect x="629" y="914" width="57" height="57" fill="#000000"/><rect x="686" y="914" width="57" height="57" fill="#000000"/><rect x="743" y="914" width="57" height="57" fill="#000000"/><rect x="857" y="914" width="57" height="57" fill="#000000"/><rect x="1028" y="914" width="57" height="57" fill="#000000"/><rect x="1085" y="914" width="57" height="57" fill="#000000"/><rect x="1199" y="914" width="57" height="57" fill="#000000"/><rect x="1256" y="914" width="57" height="57" fill="#000000"/><rect x="1427" y="914" width="57" height="57" fill="#000000"/><rect x="1541" y="914" width="57" height="57" fill="#000000"/><rect x="1655" y="914" width="57" height="57" fill="#000000"/><rect x="1712" y="914" width="57" height="57" fill="#000000"/><rect x="1769" y="914" width="57" height="57" fill="#000000"/><rect x="401" y="971" width="57" height="57" fill="#000000"/><rect x="458" y="971" width="57" height="57" fill="#000000"/><rect x="515" y="971" width="57" height="57" fill="#000000"/><rect x="971" y="971" width="57" height="57" fill="#000000"/><rect x="1085" y="971" width="57" height="57" fill="#000000"/><rect x="1142" y="971" width="57" height="57" fill="#000000"/><rect x="1256" y="971" width="57" height="57" fill="#000000"/><rect x="1427" y="971" width="57" height="57" fill="#000000"/><rect x="1598" y="971" width="57" height="57" fill="#000000"/><rect x="1655" y="971" width="57" height="57" fill="#000000"/><rect x="1712" y="971" width="57" height="57" fill="#000000"/><rect x="401" y="1028" width="57" height="57" fill="#000000"/><rect x="458" y="1028" width="57" height="57" fill="#000000"/><rect x="629" y="1028" width="57" height="57" fill="#000000"/><rect x="686" y="1028" width="57" height="57" fill="#000000"/><rect x="743" y="1028" width="57" height="57" fill="#000000"/><rect x="857" y="1028" width="57" height="57" fill="#000000"/><rect x="914" y="1028" width="57" height="57" fill="#000000"/><rect x="971" y="1028" width="57" height="57" fill="#000000"/><rect x="1028" y="1028" width="57" height="57" fill="#000000"/><rect x="1199" y="1028" width="57" height="57" fill="#000000"/><rect x="1256" y="1028" width="57" height="57" fill="#000000"/><rect x="1370" y="1028" width="57" height="57" fill="#000000"/><rect x="1427" y="1028" width="57" height="57" fill="#000000"/><rect x="1541" y="1028" width="57" height="57" fill="#000000"/><rect x="1598" y="1028" width="57" height="57" fill="#000000"/><rect x="1712" y="1028" width="57" height="57" fill="#000000"/><rect x="1769" y="1028" width="57" height="57" fill="#000000"/><rect x="230" y="1085" width="57" height="57" fill="#000000"/><rect x="515" y="1085" width="57" height="57" fill="#000000"/><rect x="686" y="1085" width="57" height="57" fill="#000000"/><rect x="743" y="1085" width="57" height="57" fill="#000000"/><rect x="800" y="1085" width="57" height="57" fill="#000000"/><rect x="857" y="1085" width="57" height="57" fill="#000000"/><rect x="1028" y="1085" width="57" height="57" fill="#000000"/><rect x="1142" y="1085" width="57" height="57" fill="#000000"/><rect x="1199" y="1085" width="57" height="57" fill="#000000"/><rect x="1313" y="1085" width="57" height="57" fill="#000000"/><rect x="1370" y="1085" width="57" height="57" fill="#000000"/><rect x="1598" y="1085" width="57" height="57" fill="#000000"/><rect x="173" y="1142" width="57" height="57" fill="#000000"/><rect x="230" y="1142" width="57" height="57" fill="#000000"/><rect x="401" y="1142" width="57" height="57" fill="#000000"/><rect x="572" y="1142" width="57" height="57" fill="#000000"/><rect x="686" y="1142" width="57" height="57" fill="#000000"/><rect x="800" y="1142" width="57" height="57" fill="#000000"/><rect x="1028" y="1142" width="57" height="57" fill="#000000"/><rect x="1085" y="1142" width="57" height="57" fill="#000000"/><rect x="1142" y="1142" width="57" height="57" fill="#000000"/><rect x="1313" y="1142" width="57" height="57" fill="#000000"/><rect x="1598" y="1142" width="57" height="57" fill="#000000"/><rect x="1712" y="1142" width="57" height="57" fill="#000000"/><rect x="173" y="1199" width="57" height="57" fill="#000000"/><rect x="230" y="1199" width="57" height="57" fill="#000000"/><rect x="287" y="1199" width="57" height="57" fill="#000000"/><rect x="344" y="1199" width="57" height="57" fill="#000000"/><rect x="458" y="1199" width="57" height="57" fill="#000000"/><rect x="515" y="1199" width="57" height="57" fill="#000000"/><rect x="743" y="1199" width="57" height="57" fill="#000000"/><rect x="857" y="1199" width="57" height="57" fill="#000000"/><rect x="914" y="1199" width="57" height="57" fill="#000000"/><rect x="971" y="1199" width="57" height="57" fill="#000000"/><rect x="1028" y="1199" width="57" height="57" fill="#000000"/><rect x="1085" y="1199" width="57" height="57" fill="#000000"/><rect x="1313" y="1199" width="57" height="57" fill="#000000"/><rect x="1427" y="1199" width="57" height="57" fill="#000000"/><rect x="1484" y="1199" width="57" height="57" fill="#000000"/><rect x="1598" y="1199" width="57" height="57" fill="#000000"/><rect x="1712" y="1199" width="57" height="57" fill="#000000"/><rect x="1769" y="1199" width="57" height="57" fill="#000000"/><rect x="173" y="1256" width="57" height="57" fill="#000000"/><rect x="230" y="1256" width="57" height="57" fill="#000000"/><rect x="287" y="1256" width="57" height="57" fill="#000000"/><rect x="401" y="1256" width="57" height="57" fill="#000000"/><rect x="572" y="1256" width="57" height="57" fill="#000000"/><rect x="686" y="1256" width="57" height="57" fill="#000000"/><rect x="743" y="1256" width="57" height="57" fill="#000000"/><rect x="800" y="1256" width="57" height="57" fill="#000000"/><rect x="914" y="1256" width="57" height="57" fill="#000000"/><rect x="1028" y="1256" width="57" height="57" fill="#000000"/><rect x="1085" y="1256" width="57" height="57" fill="#000000"/><rect x="1142" y="1256" width="57" height="57" fill="#000000"/><rect x="1199" y="1256" width="57" height="57" fill="#000000"/><rect x="1427" y="1256" width="57" height="57" fill="#000000"/><rect x="1484" y="1256" width="57" height="57" fill="#000000"/><rect x="1541" y="1256" width="57" height="57" fill="#000000"/><rect x="1769" y="1256" width="57" height="57" fill="#000000"/><rect x="173" y="1313" width="57" height="57" fill="#000000"/><rect x="230" y="1313" width="57" height="57" fill="#000000"/><rect x="344" y="1313" width="57" height="57" fill="#000000"/><rect x="401" y="1313" width="57" height="57" fill="#000000"/><rect x="515" y="1313" width="57" height="57" fill="#000000"/><rect x="572" y="1313" width="57" height="57" fill="#000000"/><rect x="629" y="1313" width="57" height="57" fill="#000000"/><rect x="686" y="1313" width="57" height="57" fill="#000000"/><rect x="800" y="1313" width="57" height="57" fill="#000000"/><rect x="914" y="1313" width="57" height="57" fill="#000000"/><rect x="1028" y="1313" width="57" height="57" fill="#000000"/><rect x="1199" y="1313" width="57" height="57" fill="#000000"/><rect x="1256" y="1313" width="57" height="57" fill="#000000"/><rect x="1313" y="1313" width="57" height="57" fill="#000000"/><rect x="1370" y="1313" width="57" height="57" fill="#000000"/><rect x="1427" y="1313" width="57" height="57" fill="#000000"/><rect x="1484" y="1313" width="57" height="57" fill="#000000"/><rect x="1541" y="1313" width="57" height="57" fill="#000000"/><rect x="1598" y="1313" width="57" height="57" fill="#000000"/><rect x="1655" y="1313" width="57" height="57" fill="#000000"/><rect x="1712" y="1313" width="57" height="57" fill="#000000"/><rect x="1769" y="1313" width="57" height="57" fill="#000000"/><rect x="629" y="1370" width="57" height="57" fill="#000000"/><rect x="743" y="1370" width="57" height="57" fill="#000000"/><rect x="857" y="1370" width="57" height="57" fill="#000000"/><rect x="914" y="1370" width="57" height="57" fill="#000000"/><rect x="1085" y="1370" width="57" height="57" fill="#000000"/><rect x="1256" y="1370" width="57" height="57" fill="#000000"/><rect x="1313" y="1370" width="57" height="57" fill="#000000"/><rect x="1541" y="1370" width="57" height="57" fill="#000000"/><rect x="1598" y="1370" width="57" height="57" fill="#000000"/><rect x="1655" y="1370" width="57" height="57" fill="#000000"/><rect x="1769" y="1370" width="57" height="57" fill="#000000"/><rect x="686" y="1427" width="57" height="57" fill="#000000"/><rect x="800" y="1427" width="57" height="57" fill="#000000"/><rect x="914" y="1427" width="57" height="57" fill="#000000"/><rect x="1313" y="1427" width="57" height="57" fill="#000000"/><rect x="1427" y="1427" width="57" height="57" fill="#000000"/><rect x="1541" y="1427" width="57" height="57" fill="#000000"/><rect x="686" y="1484" width="57" height="57" fill="#000000"/><rect x="743" y="1484" width="57" height="57" fill="#000000"/><rect x="800" y="1484" width="57" height="57" fill="#000000"/><rect x="857" y="1484" width="57" height="57" fill="#000000"/><rect x="914" y="1484" width="57" height="57" fill="#000000"/><rect x="1028" y="1484" width="57" height="57" fill="#000000"/><rect x="1199" y="1484" width="57" height="57" fill="#000000"/><rect x="1313" y="1484" width="57" height="57" fill="#000000"/><rect x="1541" y="1484" width="57" height="57" fill="#000000"/><rect x="629" y="1541" width="57" height="57" fill="#000000"/><rect x="800" y="1541" width="57" height="57" fill="#000000"/><rect x="857" y="1541" width="57" height="57" fill="#000000"/><rect x="914" y="1541" width="57" height="57" fill="#000000"/><rect x="1028" y="1541" width="57" height="57" fill="#000000"/><rect x="1085" y="1541" width="57" height="57" fill="#000000"/><rect x="1142" y="1541" width="57" height="57" fill="#000000"/><rect x="1256" y="1541" width="57" height="57" fill="#000000"/><rect x="1313" y="1541" width="57" height="57" fill="#000000"/><rect x="1370" y="1541" width="57" height="57" fill="#000000"/><rect x="1427" y="1541" width="57" height="57" fill="#000000"/><rect x="1484" y="1541" width="57" height="57" fill="#000000"/><rect x="1541" y="1541" width="57" height="57" fill="#000000"/><rect x="1655" y="1541" width="57" height="57" fill="#000000"/><rect x="1712" y="1541" width="57" height="57" fill="#000000"/><rect x="629" y="1598" width="57" height="57" fill="#000000"/><rect x="686" y="1598" width="57" height="57" fill="#000000"/><rect x="914" y="1598" width="57" height="57" fill="#000000"/><rect x="971" y="1598" width="57" height="57" fill="#000000"/><rect x="1028" y="1598" width="57" height="57" fill="#000000"/><rect x="1256" y="1598" width="57" height="57" fill="#000000"/><rect x="1370" y="1598" width="57" height="57" fill="#000000"/><rect x="1427" y="1598" width="57" height="57" fill="#000000"/><rect x="1541" y="1598" width="57" height="57" fill="#000000"/><rect x="1655" y="1598" width="57" height="57" fill="#000000"/><rect x="1712" y="1598" width="57" height="57" fill="#000000"/><rect x="686" y="1655" width="57" height="57" fill="#000000"/><rect x="743" y="1655" width="57" height="57" fill="#000000"/><rect x="800" y="1655" width="57" height="57" fill="#000000"/><rect x="857" y="1655" width="57" height="57" fill="#000000"/><rect x="914" y="1655" width="57" height="57" fill="#000000"/><rect x="1085" y="1655" width="57" height="57" fill="#000000"/><rect x="1142" y="1655" width="57" height="57" fill="#000000"/><rect x="1484" y="1655" width="57" height="57" fill="#000000"/><rect x="1541" y="1655" width="57" height="57" fill="#000000"/><rect x="1598" y="1655" width="57" height="57" fill="#000000"/><rect x="1655" y="1655" width="57" height="57" fill="#000000"/><rect x="1712" y="1655" width="57" height="57" fill="#000000"/><rect x="1769" y="1655" width="57" height="57" fill="#000000"/><rect x="629" y="1712" width="57" height="57" fill="#000000"/><rect x="743" y="1712" width="57" height="57" fill="#000000"/><rect x="800" y="1712" width="57" height="57" fill="#000000"/><rect x="1199" y="1712" width="57" height="57" fill="#000000"/><rect x="1370" y="1712" width="57" height="57" fill="#000000"/><rect x="1427" y="1712" width="57" height="57" fill="#000000"/><rect x="1598" y="1712" width="57" height="57" fill="#000000"/><rect x="1712" y="1712" width="57" height="57" fill="#000000"/><rect x="629" y="1769" width="57" height="57" fill="#000000"/><rect x="971" y="1769" width="57" height="57" fill="#000000"/><rect x="1028" y="1769" width="57" height="57" fill="#000000"/><rect x="1085" y="1769" width="57" height="57" fill="#000000"/><rect x="1142" y="1769" width="57" height="57" fill="#000000"/><rect x="1199" y="1769" width="57" height="57" fill="#000000"/><rect x="1256" y="1769" width="57" height="57" fill="#000000"/><rect x="1370" y="1769" width="57" height="57" fill="#000000"/><rect x="1427" y="1769" width="57" height="57" fill="#000000"/><rect x="1541" y="1769" width="57" height="57" fill="#000000"/><rect x="1655" y="1769" width="57" height="57" fill="#000000"/><svg version="1.1" id="Ebene_1" x="173" y="173" width="399" height="399" viewBox="0 0 699.988 699.986" enable-background="new 0 0 699.988 699.986" xml:space="preserve" shape-rendering="auto">
+<path fill="#000000" d="M600.99,0h-100h-99.997h-0.001h-99.997h-99.998h-99.998H1v99.998v99.998v99.998v99.999v99.997v99.998v99.998  h99.999h99.998h99.998h99.997h0.001h99.997h100h99.998v-99.998V499.99v-99.997v-99.999v-99.998V99.998V0H600.99z M600.99,199.996  v99.998v99.999v99.997v99.998h-100h-99.997h-0.001h-99.997h-99.998h-99.998V499.99v-99.997v-99.999v-99.998V99.998h99.998h99.998  h99.997h0.001h99.997h100V199.996z"/>
+</svg>
+<svg version="1.0" id="Ebene_1" x="173" y="173" width="399" height="399" viewBox="0 0 699.988 699.988" enable-background="new 0 0 699.988 699.988" xml:space="preserve" shape-rendering="auto">
+<polygon fill="#000000" points="399.994,199.997 399.992,199.997 299.996,199.997 199.998,199.997 199.998,299.994 199.998,399.994   199.998,499.991 299.996,499.991 399.992,499.991 399.994,499.991 499.99,499.991 499.99,399.994 499.99,299.994 499.99,199.997 "/>
+</svg>
+<svg version="1.1" id="Ebene_1" x="1427" y="173" width="399" height="399" viewBox="0 0 699.988 699.986" enable-background="new 0 0 699.988 699.986" xml:space="preserve" shape-rendering="auto">
+<path fill="#000000" d="M600.99,0h-100h-99.997h-0.001h-99.997h-99.998h-99.998H1v99.998v99.998v99.998v99.999v99.997v99.998v99.998  h99.999h99.998h99.998h99.997h0.001h99.997h100h99.998v-99.998V499.99v-99.997v-99.999v-99.998V99.998V0H600.99z M600.99,199.996  v99.998v99.999v99.997v99.998h-100h-99.997h-0.001h-99.997h-99.998h-99.998V499.99v-99.997v-99.999v-99.998V99.998h99.998h99.998  h99.997h0.001h99.997h100V199.996z"/>
+</svg>
+<svg version="1.0" id="Ebene_1" x="1427" y="173" width="399" height="399" viewBox="0 0 699.988 699.988" enable-background="new 0 0 699.988 699.988" xml:space="preserve" shape-rendering="auto">
+<polygon fill="#000000" points="399.994,199.997 399.992,199.997 299.996,199.997 199.998,199.997 199.998,299.994 199.998,399.994   199.998,499.991 299.996,499.991 399.992,499.991 399.994,499.991 499.99,499.991 499.99,399.994 499.99,299.994 499.99,199.997 "/>
+</svg>
+<svg version="1.1" id="Ebene_1" x="173" y="1427" width="399" height="399" viewBox="0 0 699.988 699.986" enable-background="new 0 0 699.988 699.986" xml:space="preserve" shape-rendering="auto">
+<path fill="#000000" d="M600.99,0h-100h-99.997h-0.001h-99.997h-99.998h-99.998H1v99.998v99.998v99.998v99.999v99.997v99.998v99.998  h99.999h99.998h99.998h99.997h0.001h99.997h100h99.998v-99.998V499.99v-99.997v-99.999v-99.998V99.998V0H600.99z M600.99,199.996  v99.998v99.999v99.997v99.998h-100h-99.997h-0.001h-99.997h-99.998h-99.998V499.99v-99.997v-99.999v-99.998V99.998h99.998h99.998  h99.997h0.001h99.997h100V199.996z"/>
+</svg>
+<svg version="1.0" id="Ebene_1" x="173" y="1427" width="399" height="399" viewBox="0 0 699.988 699.988" enable-background="new 0 0 699.988 699.988" xml:space="preserve" shape-rendering="auto">
+<polygon fill="#000000" points="399.994,199.997 399.992,199.997 299.996,199.997 199.998,199.997 199.998,299.994 199.998,399.994   199.998,499.991 299.996,499.991 399.992,499.991 399.994,499.991 499.99,499.991 499.99,399.994 499.99,299.994 499.99,199.997 "/>
+</svg>
+</svg>
+
+</svg>
+
+```
+
+src/screens/DashboardPage/DashboardPage.jsx:
+```
+import React, { useState, useRef } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
+import PagerView from "react-native-pager-view";
+
+
+
+const HomeTab = ({ navigation, styles }) => (
+    <View style={styles.tabContent}>
+        <Text style={styles.tabText}>Active Node: Connected</Text>
+        <Text style={styles.helperText}>Swipe left for Messages ➔</Text>
+
+        <TouchableOpacity style={styles.settingsButton} onPress={() => navigation.navigate("Settings")}>
+            <Text style={styles.settingsButtonText}>⚙️ Node Settings</Text>
+        </TouchableOpacity>
+    </View>
+);
+
+const MessagesTab = ({ styles }) => (
+    <View style={styles.tabContent}>
+        <Text style={styles.tabText}>Encrypted Group Chats</Text>
+    </View>
+);
+
+const ProfileTab = ({ styles }) => (
+    <View style={styles.tabContent}>
+        <Text style={styles.tabText}>User Profile & Settings</Text>
+    </View>
+);
+
+const DashboardPage = ({ navigation, styles }) => {
+    const [activeTab, setActiveTab] = useState(0);
+    const pagerRef = useRef(null);
+
+    const handleNavPress = (index) => {
+        setActiveTab(index);
+        pagerRef.current?.setPage(index);
+    };
+
+    const handleLogout = () => {
+        navigation.replace("Login");
+    };
+
+    return (
+        <View style={styles.safeContainer}>
+            <PagerView
+                style={styles.contentArea}
+                initialPage={0}
+                ref={pagerRef}
+                onPageSelected={(e) => setActiveTab(e.nativeEvent.position)}
+            >
+                {/* Pass navigation prop to HomeTab so it can route to Settings */}
+                <View key="0"><HomeTab navigation={navigation} styles={styles} /></View>
+                <View key="1"><MessagesTab styles={styles} /></View>
+                <View key="2"><ProfileTab styles={styles} /></View>
+            </PagerView>
+
+            <View style={styles.bottomNav}>
+                <TouchableOpacity style={styles.navItem} onPress={() => handleNavPress(0)}>
+                    <Text style={[styles.navText, activeTab === 0 && styles.navTextActive]}>Home</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.navItem} onPress={() => handleNavPress(1)}>
+                    <Text style={[styles.navText, activeTab === 1 && styles.navTextActive]}>Messages</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.navItem} onPress={() => handleNavPress(2)}>
+                    <Text style={[styles.navText, activeTab === 2 && styles.navTextActive]}>Profile</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.navItem} onPress={handleLogout}>
+                    <Text style={styles.navTextDanger}>Logout</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
+```
+
+src/screens/LoginPage/LoginPage.jsx:
+```
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
+import { useStyles } from "../../Styles";
+
+
+
+const LoginPage = ({ navigation }) => {
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    
+    const styles = useStyles();
+
+    const handleLogin = () => {
+        navigation.replace("Dashboard");
+    };
+
+    return (
+        <View style={styles.safeContainer}>
+            <View style={styles.centerContent}>
+                <Text style={styles.headerText}>Project PIGEON</Text>
+                <Text style={styles.subText}>Offline Mesh Network</Text>
+
+                <TextInput
+                    style={styles.input}
+                    placeholder="User ID or Node ID"
+                    value={username}
+                    onChangeText={setUsername}
+                    placeholderTextColor="#999"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Password"
+                    secureTextEntry
+                    value={password}
+                    onChangeText={setPassword}
+                    placeholderTextColor="#999"
+                />
+
+                <TouchableOpacity style={styles.primaryButton} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>Connect to Node</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.navigate("Register")}>
+                    <Text style={styles.secondaryButtonText}>Create New Node ID</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
+```
+
+src/screens/RegisterScreen/RegisterScreen.jsx:
+```
+import React, { useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity } from 'react-native';
+import { useStyles } from '../../Styles';
+
+
+const RegisterScreen = ({ navigation }) => {
+    const [name, setName] = useState("");
+    const [phone, setPhone] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const styles = useStyles();
+
+    return (
+        <View style={styles.safeContainer}>
+            <View style={styles.centerContent}>
+                <Text style={styles.headerText}>Register Node</Text>
+                <Text style={styles.subText}>Join the PIGEON Network</Text>
+
+                <TextInput style={styles.input} placeholder="Full Name" value={name} onChangeText={setName} placeholderTextColor="#999" />
+                <TextInput style={styles.input} placeholder="Phone Number" keyboardType="phone-pad" value={phone} onChangeText={setPhone} placeholderTextColor="#999" />
+                <TextInput style={styles.input} placeholder="Email (Optional)" keyboardType="email-address" value={email} onChangeText={setEmail} placeholderTextColor="#999" />
+                <TextInput style={styles.input} placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} placeholderTextColor="#999" />
+
+                <TouchableOpacity style={styles.primaryButton} onPress={() => navigation.goBack()}>
+                    <Text style={styles.buttonText}>Register</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.secondaryButton} onPress={() => navigation.goBack()}>
+                    <Text style={styles.secondaryButtonText}>Back to Login</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
+```
+
+src/screens/SettingsScreen/SettingsScreen.jsx:
+```
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { useStyles } from '../../Styles';
+
+const SettingsScreen = ({ navigation }) => {
+    const styles = useStyles();
+
+    return (
+        <View style={styles.safeContainer}>
+            <View style={styles.centerContent}>
+                <Text style={styles.headerText}>Settings</Text>
+                <Text style={styles.subText}>Configure Node Parameters</Text>
+
+                {/* Placeholder for actual settings */}
+                <Text style={styles.helperText}>LoRa Bandwidth: 125 kHz</Text>
+                <Text style={styles.helperText}>Spreading Factor: SF9</Text>
+
+                <TouchableOpacity style={[styles.primaryButton, { marginTop: 30 }]} onPress={() => navigation.goBack()}>
+                    <Text style={styles.buttonText}>Save & Go Back</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+};
+```
+
+src/Styles.jsx:
+```
+import { StatusBar, StyleSheet, useColorScheme } from "react-native";
+
+export const useStyles = () => {
+    const scheme = useColorScheme();
+    const isDark = scheme === "dark";
+
+    const styles = StyleSheet.create({
+        safeContainer: {
+            flex: 1,
+            backgroundColor: '#f4f4f8',
+            paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 40,
+        },
+        centerContent: {
+            flex: 1,
+            justifyContent: 'center',
+            padding: 20,
+        },
+        headerText: {
+            fontSize: 28,
+            fontWeight: 'bold',
+            textAlign: 'center',
+            color: '#2c3e50',
+        },
+        subText: {
+            fontSize: 16,
+            textAlign: 'center',
+            color: '#7f8c8d',
+            marginBottom: 40,
+        },
+        input: {
+            height: 50,
+            backgroundColor: '#fff',
+            borderRadius: 8,
+            paddingHorizontal: 15,
+            marginBottom: 15,
+            borderWidth: 1,
+            borderColor: '#ddd',
+            color: '#000',
+        },
+        primaryButton: {
+            backgroundColor: '#3498db',
+            padding: 15,
+            borderRadius: 8,
+            alignItems: 'center',
+            marginTop: 10,
+        },
+        buttonText: {
+            color: '#fff',
+            fontSize: 16,
+            fontWeight: 'bold',
+        },
+        secondaryButton: {
+            padding: 15,
+            alignItems: 'center',
+            marginTop: 10,
+        },
+        secondaryButtonText: {
+            color: '#3498db',
+            fontSize: 15,
+            fontWeight: '600',
+        },
+        settingsButton: {
+            marginTop: 30,
+            paddingVertical: 10,
+            paddingHorizontal: 20,
+            backgroundColor: '#ecf0f1',
+            borderRadius: 8,
+            borderWidth: 1,
+            borderColor: '#bdc3c7',
+        },
+        settingsButtonText: {
+            fontSize: 16,
+            color: '#2c3e50',
+            fontWeight: '500',
+        },
+        contentArea: {
+            flex: 1,
+        },
+        tabContent: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#f4f4f8',
+        },
+        tabText: {
+            fontSize: 20,
+            color: '#34495e',
+            fontWeight: 'bold',
+        },
+        helperText: {
+            fontSize: 14,
+            color: '#95a5a6',
+            marginTop: 10,
+        },
+        bottomNav: {
+            flexDirection: 'row',
+            backgroundColor: '#fff',
+            borderTopWidth: 1,
+            borderTopColor: '#e0e0e0',
+            paddingVertical: 15,
+            paddingBottom: Platform.OS === 'ios' ? 25 : 15,
+        },
+        navItem: {
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+        },
+        navText: {
+            fontSize: 14,
+            color: '#7f8c8d',
+        },
+        navTextActive: {
+            color: '#3498db',
+            fontWeight: 'bold',
+        },
+        navTextDanger: {
+            fontSize: 14,
+            color: '#e74c3c',
+        }
+    });
+    return styles;
+};
+```
+
+package.json:
+```
+{
+  "name": "pigeon",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
+    "lint": "eslint .",
+    "start": "react-native start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "@react-native/new-app-screen": "0.85.3",
+    "@react-navigation/native": "^7.2.5",
+    "@react-navigation/native-stack": "^7.16.0",
+    "react": "19.2.3",
+    "react-native": "0.85.3",
+    "react-native-pager-view": "^8.0.2",
+    "react-native-safe-area-context": "^5.8.0",
+    "react-native-screens": "^4.25.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.3",
+    "@babel/runtime": "^7.25.0",
+    "@react-native-community/cli": "^20.1.3",
+    "@react-native-community/cli-platform-android": "^20.1.3",
+    "@react-native-community/cli-platform-ios": "^20.1.3",
+    "@react-native/babel-preset": "0.85.3",
+    "@react-native/eslint-config": "0.85.3",
+    "@react-native/jest-preset": "0.85.3",
+    "@react-native/metro-config": "0.85.3",
+    "@react-native/typescript-config": "0.85.3",
+    "@types/jest": "^29.5.13",
+    "@types/react": "^19.2.0",
+    "@types/react-test-renderer": "^19.1.0",
+    "eslint": "^8.19.0",
+    "jest": "^29.6.3",
+    "prettier": "2.8.8",
+    "react-test-renderer": "19.2.3",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">= 22.11.0"
+  }
+}
+
+```
+
+index.js:
+```
+import { AppRegistry } from 'react-native';
+import App from './src/App';
+import { name as appName } from './app.json';
+
+AppRegistry.registerComponent(appName, () => App);
+
+```
+
+app.json:
+```
+{
+  "name": "pigeon",
+  "displayName": "pigeon"
+}
+
+```
+
