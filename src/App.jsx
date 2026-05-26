@@ -28,14 +28,13 @@ export default function App() {
                 <Stack.Screen name="Login" component={LoginPage} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
                 <Stack.Screen name="Dashboard" component={DashboardPage} />
-                {/* Enabling header just for the Settings screen as a native UI touch */}
                 <Stack.Screen
                     name="Settings"
                     component={SettingsScreen}
                     options={{
                         headerShown: true,
                         headerTitle: "PIGEON Settings",
-                        headerBackTitle: "Back" // iOS only
+                        headerBackTitle: "Back" 
                     }}
                 />
             </Stack.Navigator>
