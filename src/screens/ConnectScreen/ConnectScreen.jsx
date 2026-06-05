@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ScrollView, Platform } from 'react-native';
+import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ScrollView, Platform, PermissionsAndroid } from 'react-native';
 import { Camera, CameraType } from 'react-native-camera-kit';
+import WifiManager from "react-native-wifi-reborn";
+import { NetworkInfo } from "react-native-network-info";
 
 const { width } = Dimensions.get('window');
 
@@ -11,6 +13,23 @@ export default function ConnectScreen({ navigation }) {
 
     // Safely initialized reference for the terminal
     const scrollViewRef = useRef(null);
+
+    const requestLocationPermission = async () => {
+        if (Platform.OS === "android") {
+            const granted = await PermissionsAndroid.request(
+                PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+                {
+                    title: "Location Permission",
+                    message: "This app needs access to your location to function properly.",
+                    buttonNeutral: "Ask Me Later",
+                    buttonNegative: "Decline",
+                    buttonPositive: "Accept"
+                }
+            );
+            return granted === PermissionsAndroid.RESULTS.GRANTED;
+        }
+        return true;
+    }
 
     const addLog = (message) => {
         setLog((prevLog) => [...prevLog, message]);
@@ -25,31 +44,74 @@ export default function ConnectScreen({ navigation }) {
         }
     };
 
-    useEffect(() => {
-        if (result) {
-            try {
-                const nodeData = JSON.parse(result);
-                try{
-                    if (Array.isArray(nodeData) && nodeData.length === 3) {
-                        const nodeApSSID = nodeData[0];
-                        const nodeId = nodeData[2];
+    const checkAPIpAccess = async () => {
+        addLog(`RETRIEVING CURRENT IP ADDRESS...`);
+        const ipAddress = await NetworkInfo.getGatewayIPAddress();
+        addLog(`DEVICE IP ADDRESS ON NEW AP: ${ipAddress}`);
+    };
 
-                        addLog(`TARGET ACQUIRED: ${nodeApSSID}`);
-                        addLog(`NODE IDENTIFIER: ${nodeId}`);
-                        addLog(`INITIATING HANDSHAKE...`);
-
-                        // PIGEON INTEGRATION:
-                        // Execute your WiFi connection logic here
-                    } else {
-                        addLog(`ERROR: INVALID ARRAY FORMAT.`);
+    const tryConnect = async (ssid, password) => {
+        try {
+            await requestLocationPermission();
+            const granted = await requestLocationPermission();
+            if (granted) {
+                addLog(`LOCATION PERMISSION GRANTED.`);
+                addLog(`CHECKING CURRENT AP STATUS...`);
+                const currentSSID = await WifiManager.getCurrentWifiSSID();
+                if (currentSSID === ssid) {
+                    addLog(`ALREADY CONNECTED TO TARGET AP: ${ssid}`);
+                    checkAPIpAccess();
+                }else{
+                    addLog(`ATTEMPTING CONNECTION TO AP ${ssid}...`);
+                    try{
+                        await WifiManager.connectToProtectedSSID(ssid, password, false, false);
+                        try {
+                            addLog(`SUCCESSFULLY CONNECTED TO AP: ${ssid}`);
+                            checkAPIpAccess();
+                        } catch (ipError) {
+                            addLog(`ERROR RETRIEVING IP ADDRESS: ${ipError.message}`);
+                        }
+                    }catch(connectError){
+                        addLog(`AP CONNECTION ERROR: ${connectError.message}`);
                     }
-                }catch(innerError){
-                    addLog(`ERROR PARSING NODE DATA: ${innerError.message}`);
+                    
                 }
-            } catch (error) {
-                addLog(`INVALID QR DATA. EXPECTED ARRAY RESPONSE.`);
+            } else {
+                addLog(`LOCATION PERMISSION DENIED. CANNOT PROCEED WITH AP CONNECTION.`);
             }
+            
+            
+        } catch (wifiError) {
+            addLog(`AP CONNECTION ERROR: ${wifiError.message}`);
         }
+    };
+
+    useEffect(() => {
+        (async () => {
+            if (result) {
+                try {
+                    const nodeData = JSON.parse(result);
+                    try {
+                        if (Array.isArray(nodeData) && nodeData.length === 3) {
+                            const nodeApSSID = nodeData[0];
+                            const nodeApPassword = nodeData[2];
+
+                            addLog(`AP TARGET ACQUIRED: ${nodeApSSID}`);
+                            addLog(`INITIATING HANDSHAKE...`);
+
+                            // PIGEON INTEGRATION:
+                            tryConnect(nodeApSSID, nodeApPassword);
+                        } else {
+                            addLog(`ERROR: INVALID ARRAY FORMAT.`);
+                        }
+                    } catch (innerError) {
+                        addLog(`ERROR PARSING NODE DATA: ${innerError.message}`);
+                    }
+                } catch (error) {
+                    addLog(`INVALID QR DATA. EXPECTED ARRAY RESPONSE.`);
+                }
+            }
+        })();
     }, [result]);
 
     return (
