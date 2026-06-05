@@ -10,6 +10,7 @@ import SettingsScreen from "./screens/SettingsScreen/SettingsScreen";
 
 
 import { useStyles } from "./Styles";
+import ConnectScreen from "./screens/ConnectScreen/ConnectScreen";
 
 
 
@@ -24,7 +25,8 @@ export default function App() {
     const styles = useStyles();
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
+            <Stack.Navigator initialRouteName="Connect" screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="Connect" component={ConnectScreen} />
                 <Stack.Screen name="Login" component={LoginPage} />
                 <Stack.Screen name="Register" component={RegisterScreen} />
                 <Stack.Screen name="Dashboard" component={DashboardPage} />
