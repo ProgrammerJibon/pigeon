@@ -7,7 +7,7 @@ import { NetworkInfo } from "react-native-network-info";
 const { width } = Dimensions.get('window');
 
 export default function ConnectScreen({ navigation }) {
-    const [result, setResult] = useState("");
+    
     const [showCamera, setShowCamera] = useState(false);
     const [log, setLog] = useState([]);
 
@@ -35,12 +35,41 @@ export default function ConnectScreen({ navigation }) {
         setLog((prevLog) => [...prevLog, message]);
     };
 
+    const retrieveConnectionInfo = async (scannedData) => {
+        addLog(`PROCESSING SCANNED DATA...`);
+        if (scannedData) {
+            try {
+                const nodeData = JSON.parse(scannedData);
+                try {
+                    if (Array.isArray(nodeData) && nodeData.length === 3) {
+                        const nodeApSSID = nodeData[0];
+                        const nodeApPassword = nodeData[2];
+
+                        addLog(`AP TARGET ACQUIRED: ${nodeApSSID}`);
+                        addLog(`INITIATING HANDSHAKE...`);
+
+                        // PIGEON INTEGRATION:
+                        tryConnect(nodeApSSID, nodeApPassword);
+                    } else {
+                        addLog(`ERROR: INVALID ARRAY FORMAT.`);
+                    }
+                } catch (innerError) {
+                    addLog(`ERROR PARSING NODE DATA: ${innerError.message}`);
+                }
+            } catch (error) {
+                addLog(`INVALID QR DATA. EXPECTED ARRAY RESPONSE.`);
+            }
+        } else {
+            addLog(`ERROR: NO DATA CAPTURED FROM QR SCAN.`);
+        }
+    };
+
     const handleScan = (event) => {
         if (event?.nativeEvent?.codeStringValue) {
             const scannedData = event.nativeEvent.codeStringValue;
             addLog(`RAW DATA CAPTURED: ${scannedData}`);
-            setResult(scannedData);
             setShowCamera(false);
+            retrieveConnectionInfo(scannedData);
         }
     };
 
@@ -86,33 +115,6 @@ export default function ConnectScreen({ navigation }) {
         }
     };
 
-    useEffect(() => {
-        (async () => {
-            if (result) {
-                try {
-                    const nodeData = JSON.parse(result);
-                    try {
-                        if (Array.isArray(nodeData) && nodeData.length === 3) {
-                            const nodeApSSID = nodeData[0];
-                            const nodeApPassword = nodeData[2];
-
-                            addLog(`AP TARGET ACQUIRED: ${nodeApSSID}`);
-                            addLog(`INITIATING HANDSHAKE...`);
-
-                            // PIGEON INTEGRATION:
-                            tryConnect(nodeApSSID, nodeApPassword);
-                        } else {
-                            addLog(`ERROR: INVALID ARRAY FORMAT.`);
-                        }
-                    } catch (innerError) {
-                        addLog(`ERROR PARSING NODE DATA: ${innerError.message}`);
-                    }
-                } catch (error) {
-                    addLog(`INVALID QR DATA. EXPECTED ARRAY RESPONSE.`);
-                }
-            }
-        })();
-    }, [result]);
 
     return (
         /* Replaced SafeAreaView with standard View to prevent Height=0 collapse */
@@ -156,11 +158,10 @@ export default function ConnectScreen({ navigation }) {
                     <ScrollView
                         style={styles.consoleOutput}
                         ref={scrollViewRef}
-                        /* Added optional chaining (?.) to prevent fatal null reference crash */
                         onContentSizeChange={() => scrollViewRef.current?.scrollToEnd({ animated: true })}
                         nestedScrollEnabled={true}
                     >
-                        <Text style={log.length > 0 ? styles.resultTextSuccess : styles.resultTextPending}>
+                        <Text style={styles.resultTextSuccess}>
                             {log.length > 0 ? log.map(item => `> ${item}`).join("\n") : "STANDBY..."}
                         </Text>
                     </ScrollView>
@@ -171,8 +172,8 @@ export default function ConnectScreen({ navigation }) {
                     style={[styles.actionButton, showCamera ? styles.buttonStop : styles.buttonStart]}
                     onPress={() => {
                         setShowCamera((prev) => !prev);
-                        setResult(null);
                         if (!showCamera) {
+                            addLog("");
                             addLog("SCANNER INITIALIZED. AWAITING QR...");
                         } else {
                             addLog("SCANNER TERMINATED BY USER.");
@@ -314,6 +315,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: 'bold',
         lineHeight: 20,
+        paddingBottom: 50,
     },
     actionButton: {
         width: '100%',
