@@ -11,6 +11,7 @@ import SettingsScreen from "./screens/SettingsScreen/SettingsScreen";
 
 import { useStyles } from "./Styles";
 import ConnectScreen from "./screens/ConnectScreen/ConnectScreen";
+import Toast from "react-native-toast-message";
 
 
 
@@ -24,22 +25,25 @@ const Stack = createNativeStackNavigator();
 export default function App() {
     const styles = useStyles();
     return (
-        <NavigationContainer>
-            <Stack.Navigator initialRouteName="Connect" screenOptions={{ headerShown: false }}>
-                <Stack.Screen name="Connect" component={ConnectScreen} />
-                <Stack.Screen name="Login" component={LoginPage} />
-                <Stack.Screen name="Register" component={RegisterScreen} />
-                <Stack.Screen name="Dashboard" component={DashboardPage} />
-                <Stack.Screen
-                    name="Settings"
-                    component={SettingsScreen}
-                    options={{
-                        headerShown: true,
-                        headerTitle: "PIGEON Settings",
-                        headerBackTitle: "Back" 
-                    }}
-                />
-            </Stack.Navigator>
-        </NavigationContainer>
+        <>
+            <NavigationContainer>
+                <Stack.Navigator initialRouteName="Connect" screenOptions={{ headerShown: false }}>
+                    <Stack.Screen name="Connect" component={ConnectScreen} />
+                    <Stack.Screen name="Login" component={LoginPage} />
+                    <Stack.Screen name="Register" component={RegisterScreen} />
+                    <Stack.Screen name="Dashboard" component={DashboardPage} />
+                    <Stack.Screen
+                        name="Settings"
+                        component={SettingsScreen}
+                        options={{
+                            headerShown: true,
+                            headerTitle: "PIGEON Settings",
+                            headerBackTitle: "Back"
+                        }}
+                    />
+                </Stack.Navigator>
+            </NavigationContainer>
+            <Toast />
+        </>
     );
 }

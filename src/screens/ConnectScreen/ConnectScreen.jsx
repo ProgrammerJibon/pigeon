@@ -3,6 +3,9 @@ import { StyleSheet, View, Text, TouchableOpacity, Dimensions, ScrollView, Platf
 import { Camera, CameraType } from 'react-native-camera-kit';
 import WifiManager from "react-native-wifi-reborn";
 import { NetworkInfo } from "react-native-network-info";
+import { BackHandler } from 'react-native';
+import Toast from 'react-native-toast-message';
+import { useIsFocused } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -13,6 +16,8 @@ export default function ConnectScreen({ navigation }) {
 
     // Safely initialized reference for the terminal
     const scrollViewRef = useRef(null);
+
+    
 
     const requestLocationPermission = async () => {
         if (Platform.OS === "android") {
@@ -115,6 +120,34 @@ export default function ConnectScreen({ navigation }) {
         }
     };
 
+    const isFocused = useIsFocused();
+    useEffect(() => {
+        if (!isFocused) return;
+        let pressed = 0;
+        const backAction = () => {
+            if (pressed < 1) {
+                Toast.show({
+                    type: 'info',
+                    text1: 'PRESS BACK AGAIN TO EXIT APP.',
+                    text2: 'We will close the application if you press back again within 2 seconds.',
+                    position: 'top',
+                    visibilityTime: 2000,
+                });
+                pressed += 1;
+                setTimeout(() => { pressed = 0 }, 2000);
+                return true;
+            }
+            return false;
+        };
+
+        const subscription = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction
+        );
+
+        return () => subscription.remove();
+    }, []);
+
 
     return (
         /* Replaced SafeAreaView with standard View to prevent Height=0 collapse */
@@ -122,9 +155,13 @@ export default function ConnectScreen({ navigation }) {
             <View style={styles.container}>
 
                 {/* Header Section */}
-                <View style={styles.headerContainer}>
-                    <Text style={styles.headerTitle}>PIGEON UPLINK</Text>
-                    <Text style={styles.headerSubtitle}>ESP32 LoRa Mesh Interface</Text>
+                <View style={styles.headerContainer} >
+                    <TouchableOpacity style={styles.headerContainer}  onPress={() => navigation.navigate('Login')} 
+                    >
+                        <Text style={styles.headerTitle}>PIGEON UPLINK</Text>
+                        <Text style={styles.headerSubtitle}>ESP32 LoRa Mesh Interface</Text>
+                    </TouchableOpacity>
+                    
                 </View>
 
                 {/* Main Camera / Radar Display */}
@@ -141,7 +178,6 @@ export default function ConnectScreen({ navigation }) {
                             {/* Tactical Scanning Reticle */}
                             <View style={styles.reticleOverlay}>
                                 <View style={styles.targetFrame} />
-                                <Text style={styles.scanningText}>AWAITING NODE QR...</Text>
                             </View>
                         </View>
                     ) : (
@@ -185,6 +221,7 @@ export default function ConnectScreen({ navigation }) {
                         {showCamera ? "TERMINATE SCAN" : "INITIALIZE SCANNER"}
                     </Text>
                 </TouchableOpacity>
+
 
             </View>
         </View>
