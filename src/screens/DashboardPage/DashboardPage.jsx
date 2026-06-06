@@ -3,6 +3,7 @@ import React, { useState, useRef } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import PagerView from "react-native-pager-view";
 import { useStyles } from "../../Styles"; // <-- 1. Add this import
+import MessagesTab from "./Tabs/MessagesTab";
 
 const HomeTab = ({ navigation, styles }) => (
     <View style={styles.tabContent}>
@@ -15,11 +16,7 @@ const HomeTab = ({ navigation, styles }) => (
     </View>
 );
 
-const MessagesTab = ({ styles }) => (
-    <View style={styles.tabContent}>
-        <Text style={styles.tabText}>Encrypted Group Chats</Text>
-    </View>
-);
+
 
 const ProfileTab = ({ styles }) => (
     <View style={styles.tabContent}>
@@ -51,22 +48,28 @@ const DashboardPage = ({ navigation }) => {
                 onPageSelected={(e) => setActiveTab(e.nativeEvent.position)}
             >
                 {/* 4. You are correctly passing styles down to the tabs here! */}
-                <View key="0"><HomeTab navigation={navigation} styles={styles} /></View>
-                <View key="1"><MessagesTab styles={styles} /></View>
-                <View key="2"><ProfileTab styles={styles} /></View>
+                <View key="0"><MessagesTab /></View>
+                <View key="1"><MessagesTab /></View>
+                <View key="2"><HomeTab navigation={navigation} styles={styles} /></View>
+                <View key="3"><ProfileTab styles={styles} /></View>
             </PagerView>
 
             <View style={styles.bottomNav}>
+
                 <TouchableOpacity style={styles.navItem} onPress={() => handleNavPress(0)}>
-                    <Text style={[styles.navText, activeTab === 0 && styles.navTextActive]}>Home</Text>
+                    <Text style={[styles.navText, activeTab === 0 && styles.navTextActive]}>Inbox</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navItem} onPress={() => handleNavPress(1)}>
-                    <Text style={[styles.navText, activeTab === 1 && styles.navTextActive]}>Messages</Text>
+                    <Text style={[styles.navText, activeTab === 1 && styles.navTextActive]}>Groups</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navItem} onPress={() => handleNavPress(2)}>
-                    <Text style={[styles.navText, activeTab === 2 && styles.navTextActive]}>Profile</Text>
+                    <Text style={[styles.navText, activeTab === 2 && styles.navTextActive]}>Dash</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={styles.navItem} onPress={() => handleNavPress(3)}>
+                    <Text style={[styles.navText, activeTab === 3 && styles.navTextActive]}>Profile</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={styles.navItem} onPress={handleLogout}>
